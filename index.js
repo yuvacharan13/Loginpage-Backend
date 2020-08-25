@@ -1,11 +1,12 @@
 const express = require("express");
 const mongodb = require('mongodb');
 const app = express();
-const url = "mongodb://localhost:27017";
+// const url = "mongodb://localhost:27017";
+const url = "mongodb+srv://loginuser:loginuserPassword@loginpage.brfwy.mongodb.net/<dbname>?retryWrites=true&w=majority"
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 4040;
-var ObjectId = require('mongodb').ObjectID;
+// var ObjectId = require('mongodb').ObjectID;
 var Pusher = require('pusher');
 app.use(cors());
 app.use(bodyParser.json())
@@ -35,8 +36,6 @@ app.get('/fetch', async (req,res) => {
         const client = await mongodb.connect(url, {useUnifiedTopology: true});
         const db = await client.db("loginpage");
         const data = await db.collection("loginpagedata").find().toArray();
-        const data1 = await db.collection("loginpagedata").find();
-        console.log(data1);
         await client.close();
         res.json({
             status: data[0]
